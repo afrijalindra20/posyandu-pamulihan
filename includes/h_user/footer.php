@@ -7,7 +7,7 @@
                     <p>
                         Desa Pamulihan, Kecamatan Subang, Kabupaten Kuningan<br>
                         <i class="fas fa-envelope"></i> Email: desapamulihan@gmail.com<br>
-                        <i class="fas fa-phone"></i> Telepon: 082119950948
+                        <i class="fas fa-phone"></i> Telepon: +62 822-1827-7412
                     </p>
                 </div>
                 <div class="col-lg-6 col-md-12 mb-4 mb-md-0">
