@@ -1,5 +1,13 @@
 <?php
+
+require_once __DIR__ . '/../vendor/fpdf/fpdf/src/Fpdf/Fpdf.php';
+require_once __DIR__ . '/../vendor/autoload.php';
+
+
+use FPDF\FPDF;
+
 // config/config.php
+
 
 // Aktifkan error reporting untuk debugging
 error_reporting(E_ALL);
@@ -157,16 +165,17 @@ function getBalita2AndPengukuran($db, $id_balita) {
             WHERE b.id_balita = :id_balita";
     $stmt = $db->prepare($sql);
     $stmt->execute([':id_balita' => $id_balita]);
-    return $stmt->fetchAll();
+    $result = $stmt->fetchAll();
+    return $result ? $result : [];
 }
 
-// Fungsi untuk mendapatkan pengukuran berdasarkan bulan untuk balita_2
 function getPengukuranByBulan2($db, $id_balita, $bulan) {
     $sql = "SELECT * FROM pengukuran_balita_2
             WHERE id_balita = :id_balita AND bulan = :bulan";
     $stmt = $db->prepare($sql);
     $stmt->execute([':id_balita' => $id_balita, ':bulan' => $bulan]);
-    return $stmt->fetchAll();
+    $result = $stmt->fetchAll();
+    return $result ? $result : [];
 }
 
 function getBalita3AndPengukuran($db, $id_balita) {
@@ -298,3 +307,10 @@ function getCatatanKehamilanByBulan4($db, $id_ibu, $bulan) {
     $stmt->execute([':id_ibu' => $id_ibu, ':bulan' => $bulan]);
     return $stmt->fetchAll();
 }
+
+
+
+
+
+
+
