@@ -312,3 +312,65 @@
 [2024-08-12 19:06:34] Membaca baris 2: 9, Andi Saputra, Laki-laki, 3501234567890009, 2020-05-15, 3000, Budi santoso, Ansila, Jl. Mawar No. 10 RT 02/RW 03, Aktif
 [2024-08-12 19:06:34] Baris 2 berhasil diimpor
 [2024-08-12 19:06:34] Transaksi berhasil. 1 data balita diimpor.
+[2024-08-12 22:55:02] Mulai impor file: C:\xampp\tmp\phpBAF8.tmp
+[2024-08-12 22:55:02] File berhasil dibuka
+[2024-08-12 22:55:02] Transaksi database dimulai
+[2024-08-12 22:55:02] Membaca baris 2: 1, 2, 2024-01-01, 2024-09-07, 2020-05-15, Normal, 160.5, 55.2, 25.3, Normal, Ya, Tidak, Ya, januari
+[2024-08-12 22:55:02] Error: Format data tidak valid pada baris 2
+[2024-08-12 22:55:02] Transaksi dibatalkan karena ada error.
+[2024-08-12 22:55:36] Mulai impor file: C:\xampp\tmp\php4111.tmp
+[2024-08-12 22:55:36] File berhasil dibuka
+[2024-08-12 22:55:36] Transaksi database dimulai
+[2024-08-12 22:55:36] Membaca baris 2: ID Ibu, Nama Ibu Hamil, NIK, Tanggal Lahir Ibu Hamil, Nama Suami, Nik Suami, Tempat tanggal lahir suami, Alamat, , , , , 
+[2024-08-12 22:55:36] Error: Jumlah kolom tidak sesuai pada baris 2
+[2024-08-12 22:55:36] Membaca baris 2: 9, Rina Wati, 3.27501E+15, Medan, 12 Agustus 1992, Dedi Kurniawan, 3.27501E+15, Palembang, 25 September 1991, Jl. Sudirman No. 67, Medan, , , , , 
+[2024-08-12 22:55:36] Error: Jumlah kolom tidak sesuai pada baris 2
+[2024-08-12 22:55:36] Membaca baris 2: , , , , , , , , , , , , 
+[2024-08-12 22:55:36] Error: Jumlah kolom tidak sesuai pada baris 2
+[2024-08-12 22:55:36] Membaca baris 2: Data Catatan Kehamilan, , , , , , , , , , , , 
+[2024-08-12 22:55:36] Error: Jumlah kolom tidak sesuai pada baris 2
+[2024-08-12 22:55:36] Membaca baris 2: Hamil Keberapa, HPHT, HPL, Usia Kehamilan, Status Kehamilan, Tinggi Badan, Berat Badan, LILA, Laboratorium, Imunisasi, Mendapatkan Bantuan, Mempunyai BPJS, Bulan
+[2024-08-12 22:55:36] Error: Jumlah kolom tidak sesuai pada baris 2
+[2024-08-12 22:55:36] Membaca baris 2: 3, 3/10/2023, 12/17/2023, 14 minggu, Normal, 162, 60, 26, Normal, TT3, 1, 1, januari
+[2024-08-12 22:55:36] Error: Jumlah kolom tidak sesuai pada baris 2
+[2024-08-12 22:55:36] Transaksi dibatalkan karena ada error.
+[2024-08-12 22:58:07] Mulai impor file: C:\xampp\tmp\php8CC7.tmp
+[2024-08-12 22:58:07] File berhasil dibuka
+[2024-08-12 22:58:07] Transaksi database dimulai
+[2024-08-12 22:58:07] Membaca baris 2: 1, 2, 2024-01-01, 2024-09-07, 12, Normal, 160.5, 55.2, 25.3, Normal, Ya, Tidak, Ya, januari
+[2024-08-12 22:58:07] Baris 2 berhasil diimpor
+[2024-08-12 22:58:07] Transaksi berhasil. 1 data diimpor.
+[2024-08-12 23:00:01] Mulai impor file: C:\xampp\tmp\php4AC4.tmp
+[2024-08-12 23:00:01] File berhasil dibuka
+[2024-08-12 23:00:01] Transaksi database dimulai
+[2024-08-12 23:00:01] Membaca baris 2: 9, 2, 2024-01-01, 2024-09-07, 12, Normal, 160.5, 55.2, 25.3, Normal, Ya, Tidak, Ya, januari
+[2024-08-12 23:00:01] Baris 2 berhasil diimpor
+[2024-08-12 23:00:01] Transaksi berhasil. 1 data diimpor.
+[2024-08-12 23:07:19] Mulai impor file ibu hamil: C:\xampp\tmp\phpF9B5.tmp
+[2024-08-12 23:07:19] File ibu hamil berhasil dibuka
+[2024-08-12 23:07:19] Transaksi database dimulai
+[2024-08-12 23:07:19] Membaca baris 2: 11, sukijem, 275014501920011, Kuningan, 1990-05-15, Ahmad, 275014501920012, Kuningan, 1988-03-20, Jl. Merdeka No. 123, Jl. Sudirman No. 67, Kuningan
+[2024-08-12 23:07:19] Error: Jumlah kolom tidak sesuai pada baris 2
+[2024-08-12 23:07:19] Transaksi dibatalkan karena ada error.
+[2024-08-12 23:08:36] Mulai impor file ibu hamil: C:\xampp\tmp\php2565.tmp
+[2024-08-12 23:08:36] File ibu hamil berhasil dibuka
+[2024-08-12 23:08:36] Transaksi database dimulai
+[2024-08-12 23:08:36] Membaca baris 2: 11, sukijem, 275014501920011, 1990-05-15, Ahmad, 275014501920012, 1988-03-20, Jl. Merdeka No. 123, Jl. Sudirman No. 67, Kuningan
+[2024-08-12 23:08:36] Error: Jumlah kolom tidak sesuai pada baris 2
+[2024-08-12 23:08:36] Transaksi dibatalkan karena ada error.
+[2024-08-12 23:10:11] Mulai impor file ibu hamil: C:\xampp\tmp\php99B7.tmp
+[2024-08-12 23:10:11] File ibu hamil berhasil dibuka
+[2024-08-12 23:10:11] Transaksi database dimulai
+[2024-08-12 23:10:11] Membaca baris 2: 11, sukijem, 275014501920011, Kuningan, 1990-05-15, Ahmad, 275014501920012, Kuningan, 1988-03-20, Jl. Sudirman No. 67, Kuningan
+[2024-08-12 23:10:11] Error PDO: SQLSTATE[HY000]: General error: 25 column index out of range
+[2024-08-12 23:10:35] Mulai impor file ibu hamil: C:\xampp\tmp\phpF833.tmp
+[2024-08-12 23:10:35] File ibu hamil berhasil dibuka
+[2024-08-12 23:10:35] Transaksi database dimulai
+[2024-08-12 23:10:35] Membaca baris 2: 11, sukijem, 275014501920011, Kuningan, 1990-05-15, Ahmad, 275014501920012, Kuningan, 1988-03-20, Jl. Sudirman No. 67, Kuningan
+[2024-08-12 23:10:35] Error PDO: SQLSTATE[HY000]: General error: 25 column index out of range
+[2024-08-12 23:13:45] Mulai impor file ibu hamil: C:\xampp\tmp\phpDF3F.tmp
+[2024-08-12 23:13:45] File ibu hamil berhasil dibuka
+[2024-08-12 23:13:45] Transaksi database dimulai
+[2024-08-12 23:13:45] Membaca baris 2: 11, sukijem, 275014501920011, Kuningan, 1990-05-15, Ahmad, 275014501920012, Kuningan, 1988-03-20, Jl. Sudirman No. 67, Kuningan
+[2024-08-12 23:13:45] Baris 2 berhasil diimpor
+[2024-08-12 23:13:45] Transaksi berhasil. 1 data ibu hamil diimpor.

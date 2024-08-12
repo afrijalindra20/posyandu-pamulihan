@@ -490,7 +490,7 @@ function importIbuHamilFromCSV($filename, $db) {
                     continue;
                 }
 
-                if (!$stmt->execute([$id_ibu, $nama_ibu_hamil, $nik, $tempat_tanggal_lahir_ibu, $nama_suami, $nik_suami, $nik, $tempat_tanggal_lahir_suami, $alamat])) {
+                if (!$stmt->execute([$id_ibu, $nama_ibu_hamil, $nik, $tempat_tanggal_lahir_ibu, $nama_suami, $nik_suami, $tempat_tanggal_lahir_suami, $alamat])) {
                     $errors[] = "Baris $lineNumber: " . implode(", ", $stmt->errorInfo());
                     logImport("Error database pada baris $lineNumber: " . implode(", ", $stmt->errorInfo()));
                     continue;
@@ -933,8 +933,8 @@ body {
             <option value="export_excel">Export Excel</option>
             <option value="export_pdf">Export PDF</option>
             <option value="export_csv">Export CSV</option>
-            <option value="import_csv">Import CSV Pengukuran</option>
-            <option value="import_balita_csv">Import CSV Balita</option>
+            <option value="import_csv">Import CSV Catatan Kehamilan</option>
+            <option value="import_ibu_hamil_csv">Import CSV Ibu Hamil</option>
             <option value="print">Cetak</option>
         </select>
     </div>
@@ -959,7 +959,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const importFile = document.getElementById('importFile');
 
     actionSelect.addEventListener('change', function() {
-        if (this.value === 'import_csv' || this.value === 'import_balita_csv') {
+        if (this.value === 'import_csv' || this.value === 'import_ibu_hamil_csv') {
             importFile.style.display = 'block';
         } else {
             importFile.style.display = 'none';
