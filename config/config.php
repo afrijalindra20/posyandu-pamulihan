@@ -294,6 +294,14 @@ function getCatatanKehamilanByBulan2($db, $id_ibu, $bulan) {
     return $stmt->fetchAll();
 }
 
+function getAllCatatan2($db, $id_ibu) {
+    $query = "SELECT * FROM catatan_kehamilan_2 WHERE id_ibu = :id_ibu ORDER BY hamil_keberapa";
+    $stmt = $db->prepare($query);
+    $stmt->bindParam(':id_ibu', $id_ibu, PDO::PARAM_INT);
+    $stmt->execute();
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
 // Fungsi untuk mendapatkan data ibu hamil dan catatan kehamilan
 function getIbuHamil3AndCatatanKehamilan($db, $id_ibu) {
     $sql = "SELECT i.*, c.id_kehamilan, c.hamil_keberapa, c.hpht, c.hpl, c.usia_kehamilan, 

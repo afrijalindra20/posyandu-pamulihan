@@ -67,6 +67,9 @@ function isActive($page) {
                     <li class="nav-item">
                         <a class="nav-link <?php echo isActive('ibuhamil_crud_p2.php'); ?>" href="../posyandu_2/ibuhamil_crud_p2.php"><i class="fas fa-ruler"></i> Catatan Ibu Hamil</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link <?php echo isActive('ibuhamil_p2_file.php'); ?>" href="../posyandu_2/ibuhamil_p2_file.php"><i class="fas fa-user"></i> Transfer Data Ibu Hamil</a>
+                    </li>
             
                 </ul>
             </div>
