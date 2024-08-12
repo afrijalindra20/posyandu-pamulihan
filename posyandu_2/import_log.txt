@@ -374,3 +374,9 @@
 [2024-08-12 23:13:45] Membaca baris 2: 11, sukijem, 275014501920011, Kuningan, 1990-05-15, Ahmad, 275014501920012, Kuningan, 1988-03-20, Jl. Sudirman No. 67, Kuningan
 [2024-08-12 23:13:45] Baris 2 berhasil diimpor
 [2024-08-12 23:13:45] Transaksi berhasil. 1 data ibu hamil diimpor.
+[2024-08-12 23:22:21] Mulai impor file ibu hamil: C:\xampp\tmp\phpBDC7.tmp
+[2024-08-12 23:22:21] File ibu hamil berhasil dibuka
+[2024-08-12 23:22:21] Transaksi database dimulai
+[2024-08-12 23:22:21] Membaca baris 2: 11, sukijem, 275014501920011, Kuningan, 1990-05-15, Ahmad, 275014501920012, Kuningan, 1988-03-20, Jl. Sudirman No. 67, Kuningan
+[2024-08-12 23:22:21] Baris 2 berhasil diimpor
+[2024-08-12 23:22:21] Transaksi berhasil. 1 data ibu hamil diimpor.

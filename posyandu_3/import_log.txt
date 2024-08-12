@@ -28,3 +28,15 @@
 [2024-08-12 19:47:47] Membaca baris 2: 9, Andi Saputra, Laki-laki, 3501234567890009, 2020-05-15, 3000, Budi santoso, Ansila, Jl. Mawar No. 10 RT 02/RW 03, Aktif
 [2024-08-12 19:47:47] Baris 2 berhasil diimpor
 [2024-08-12 19:47:47] Transaksi berhasil. 1 data balita diimpor.
+[2024-08-12 23:31:30] Mulai impor file: C:\xampp\tmp\php1EAD.tmp
+[2024-08-12 23:31:30] File berhasil dibuka
+[2024-08-12 23:31:30] Transaksi database dimulai
+[2024-08-12 23:31:30] Membaca baris 2: 9, 2, 2024-01-01, 2024-09-07, 12, Normal, 160.5, 55.2, 25.3, Normal, Ya, Tidak, Ya, januari
+[2024-08-12 23:31:30] Baris 2 berhasil diimpor
+[2024-08-12 23:31:30] Transaksi berhasil. 1 data diimpor.
+[2024-08-12 23:31:55] Mulai impor file ibu hamil: C:\xampp\tmp\php7F8B.tmp
+[2024-08-12 23:31:55] File ibu hamil berhasil dibuka
+[2024-08-12 23:31:55] Transaksi database dimulai
+[2024-08-12 23:31:55] Membaca baris 2: 11, sukijem, 275014501920011, Kuningan, 1990-05-15, Ahmad, 275014501920012, Kuningan, 1988-03-20, Jl. Sudirman No. 67, Kuningan
+[2024-08-12 23:31:55] Baris 2 berhasil diimpor
+[2024-08-12 23:31:55] Transaksi berhasil. 1 data ibu hamil diimpor.

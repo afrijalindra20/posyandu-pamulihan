@@ -271,6 +271,14 @@ function getCatatanKehamilanByBulan($db, $id_ibu, $bulan) {
     return $stmt->fetchAll();
 }
 
+function getAllCatatan($db, $id_ibu) {
+    $query = "SELECT * FROM catatan_kehamilan WHERE id_ibu = :id_ibu ORDER BY hamil_keberapa";
+    $stmt = $db->prepare($query);
+    $stmt->bindParam(':id_ibu', $id_ibu, PDO::PARAM_INT);
+    $stmt->execute();
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
 // Fungsi untuk mendapatkan data ibu hamil dan catatan kehamilan
 function getIbuHamil2AndCatatanKehamilan($db, $id_ibu) {
     $sql = "SELECT i.*, c.id_kehamilan, c.hamil_keberapa, c.hpht, c.hpl, c.usia_kehamilan, 
@@ -325,6 +333,14 @@ function getCatatanKehamilanByBulan3($db, $id_ibu, $bulan) {
     return $stmt->fetchAll();
 }
 
+function getAllCatatan3($db, $id_ibu) {
+    $query = "SELECT * FROM catatan_kehamilan_3 WHERE id_ibu = :id_ibu ORDER BY hamil_keberapa";
+    $stmt = $db->prepare($query);
+    $stmt->bindParam(':id_ibu', $id_ibu, PDO::PARAM_INT);
+    $stmt->execute();
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
 // Fungsi untuk mendapatkan data ibu hamil dan catatan kehamilan
 function getIbuHamil4AndCatatanKehamilan($db, $id_ibu) {
     $sql = "SELECT i.*, c.id_kehamilan, c.hamil_keberapa, c.hpht, c.hpl, c.usia_kehamilan, 
@@ -346,6 +362,14 @@ function getCatatanKehamilanByBulan4($db, $id_ibu, $bulan) {
     $stmt = $db->prepare($sql);
     $stmt->execute([':id_ibu' => $id_ibu, ':bulan' => $bulan]);
     return $stmt->fetchAll();
+}
+
+function getAllCatatan4($db, $id_ibu) {
+    $query = "SELECT * FROM catatan_kehamilan_4 WHERE id_ibu = :id_ibu ORDER BY hamil_keberapa";
+    $stmt = $db->prepare($query);
+    $stmt->bindParam(':id_ibu', $id_ibu, PDO::PARAM_INT);
+    $stmt->execute();
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
 
