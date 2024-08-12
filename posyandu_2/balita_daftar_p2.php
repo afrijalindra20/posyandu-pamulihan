@@ -7,32 +7,54 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $action = $_POST['action'];
 
     if ($action === 'add') {
-        $stmt = $db->prepare("INSERT INTO balita_2 (nama_balita, jenis_kelamin, nik, tanggal_lahir, berat_badan_lahir, nama_ayah, nama_ibu, alamat, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        // Ambil nilai 'no' terbesar dari tabel balita_2
+        $stmt = $db->prepare("SELECT MAX(no) AS max_no FROM balita_2");
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        $max_no = $result['max_no'] ?? 0; // Jika NULL, set 0
+
+        if (!isset($_POST['no']) || empty($_POST['no'])) {
+            $_POST['no'] = $max_no + 1;
+        }
+        
+        // Jika 'no' tidak disediakan, buat no baru
+        $no = $_POST['no'] ?? ($max_no + 1);
+
+        // Gunakan htmlspecialchars untuk menghindari error deprecation
+        $stmt = $db->prepare("INSERT INTO balita_2 (no, nama_balita, jenis_kelamin, nik, tanggal_lahir, berat_badan_lahir, nama_ayah, nama_ibu, alamat, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
         $stmt->execute([
-            $_POST['nama_balita'],
-            $_POST['jenis_kelamin'],
-            $_POST['nik'],
-            $_POST['tanggal_lahir'],
-            $_POST['berat_badan_lahir'],
-            $_POST['nama_ayah'],
-            $_POST['nama_ibu'],
-            $_POST['alamat'],
-            $_POST['status']
+            $no,
+            htmlspecialchars($_POST['nama_balita'] ?? '', ENT_QUOTES, 'UTF-8'),
+            htmlspecialchars($_POST['jenis_kelamin'] ?? '', ENT_QUOTES, 'UTF-8'),
+            htmlspecialchars($_POST['nik'] ?? '', ENT_QUOTES, 'UTF-8'),
+            htmlspecialchars($_POST['tanggal_lahir'] ?? '', ENT_QUOTES, 'UTF-8'),
+            htmlspecialchars($_POST['berat_badan_lahir'] ?? '', ENT_QUOTES, 'UTF-8'),
+            htmlspecialchars($_POST['nama_ayah'] ?? '', ENT_QUOTES, 'UTF-8'),
+            htmlspecialchars($_POST['nama_ibu'] ?? '', ENT_QUOTES, 'UTF-8'),
+            htmlspecialchars($_POST['alamat'] ?? '', ENT_QUOTES, 'UTF-8'),
+            htmlspecialchars($_POST['status'] ?? '', ENT_QUOTES, 'UTF-8')
         ]);
     } elseif ($action === 'edit') {
-        $stmt = $db->prepare("UPDATE balita_2 SET nama_balita = ?, jenis_kelamin = ?, nik = ?, tanggal_lahir = ?, berat_badan_lahir = ?, nama_ayah = ?, nama_ibu = ?, alamat = ?, status = ? WHERE id_balita = ?");
+        // Tambahkan ini untuk mendefinisikan $no
+        $no = $_POST['no'] ?? null;
+
+        // Gunakan htmlspecialchars untuk menghindari error deprecation
+        $stmt = $db->prepare("UPDATE balita_2 SET no = ?, nama_balita = ?, jenis_kelamin = ?, nik = ?, tanggal_lahir = ?, berat_badan_lahir = ?, nama_ayah = ?, nama_ibu = ?, alamat = ?, status = ? WHERE id_balita = ?");
         $stmt->execute([
-            $_POST['nama_balita'],
-            $_POST['jenis_kelamin'],
-            $_POST['nik'],
-            $_POST['tanggal_lahir'],
-            $_POST['berat_badan_lahir'],
-            $_POST['nama_ayah'],
-            $_POST['nama_ibu'],
-            $_POST['alamat'],
-            $_POST['status'],
+            $no,
+            htmlspecialchars($_POST['nama_balita'] ?? '', ENT_QUOTES, 'UTF-8'),
+            htmlspecialchars($_POST['jenis_kelamin'] ?? '', ENT_QUOTES, 'UTF-8'),
+            htmlspecialchars($_POST['nik'] ?? '', ENT_QUOTES, 'UTF-8'),
+            htmlspecialchars($_POST['tanggal_lahir'] ?? '', ENT_QUOTES, 'UTF-8'),
+            htmlspecialchars($_POST['berat_badan_lahir'] ?? '', ENT_QUOTES, 'UTF-8'),
+            htmlspecialchars($_POST['nama_ayah'] ?? '', ENT_QUOTES, 'UTF-8'),
+            htmlspecialchars($_POST['nama_ibu'] ?? '', ENT_QUOTES, 'UTF-8'),
+            htmlspecialchars($_POST['alamat'] ?? '', ENT_QUOTES, 'UTF-8'),
+            htmlspecialchars($_POST['status'] ?? '', ENT_QUOTES, 'UTF-8'),
             $_POST['id_balita']
         ]);
+        
     } elseif ($action === 'delete') {
         $stmt = $db->prepare("DELETE FROM balita_2 WHERE id_balita = ?");
         $result = $stmt->execute([$_POST['id_balita']]);
@@ -65,6 +87,7 @@ if (isset($_GET['edit'])) {
 // Mengambil daftar semua balita
 $balitas = $db->query("SELECT * FROM balita_2")->fetchAll(PDO::FETCH_ASSOC);
 ?>
+
 
 <!DOCTYPE html>
 <html lang="id">
@@ -213,10 +236,14 @@ $balitas = $db->query("SELECT * FROM balita_2")->fetchAll(PDO::FETCH_ASSOC);
                 </div>
                 <div class="card-body">
                     <form method="post">
-                        <input type="hidden" name="id_balita" value="<?php echo isset($balita) ? htmlspecialchars($balita['id_balita']) : ''; ?>">
+                        <input type="hidden" name="id_balita" value="<?php echo isset($balita) ? htmlspecialchars($balita['id_balita'] ?? '', ENT_QUOTES, 'UTF-8') : ''; ?>">
+                        <div class="mb-3">
+                            <label for="no" class="form-label">No:</label>
+                            <input type="number" name="no" id="no" class="form-control" value="<?php echo isset($balita) ? htmlspecialchars($balita['no'] ?? '', ENT_QUOTES, 'UTF-8') : ''; ?>" required>
+                        </div>
                         <div class="mb-3">
                             <label for="nama_balita" class="form-label">Nama Balita:</label>
-                            <input type="text" name="nama_balita" id="nama_balita" class="form-control" value="<?php echo isset($balita) ? htmlspecialchars($balita['nama_balita']) : ''; ?>" required>
+                            <input type="text" name="nama_balita" id="nama_balita" class="form-control" value="<?php echo isset($balita) ? htmlspecialchars($balita['nama_balita'] ?? '', ENT_QUOTES, 'UTF-8') : ''; ?>" required>
                         </div>
                         <div class="mb-3">
                             <label for="jenis_kelamin" class="form-label">Jenis Kelamin:</label>
@@ -227,27 +254,27 @@ $balitas = $db->query("SELECT * FROM balita_2")->fetchAll(PDO::FETCH_ASSOC);
                         </div>
                         <div class="mb-3">
                             <label for="nik" class="form-label">NIK:</label>
-                            <input type="text" name="nik" id="nik" class="form-control" value="<?php echo isset($balita) ? htmlspecialchars($balita['nik']) : ''; ?>" required>
+                            <input type="text" name="nik" id="nik" class="form-control" value="<?php echo isset($balita) ? htmlspecialchars($balita['nik'] ?? '', ENT_QUOTES, 'UTF-8') : ''; ?>" required>
                         </div>
                         <div class="mb-3">
                             <label for="tanggal_lahir" class="form-label">Tanggal Lahir:</label>
-                            <input type="date" name="tanggal_lahir" id="tanggal_lahir" class="form-control" value="<?php echo isset($balita) ? htmlspecialchars($balita['tanggal_lahir']) : ''; ?>" required>
+                            <input type="date" name="tanggal_lahir" id="tanggal_lahir" class="form-control" value="<?php echo isset($balita) ? htmlspecialchars($balita['tanggal_lahir'] ?? '', ENT_QUOTES, 'UTF-8') : ''; ?>" required>
                         </div>
                         <div class="mb-3">
                             <label for="berat_badan_lahir" class="form-label">Berat Badan Lahir:</label>
-                            <input type="number" step="0.01" name="berat_badan_lahir" id="berat_badan_lahir" class="form-control" value="<?php echo isset($balita) ? htmlspecialchars($balita['berat_badan_lahir']) : ''; ?>" required>
+                            <input type="number" step="0.01" name="berat_badan_lahir" id="berat_badan_lahir" class="form-control" value="<?php echo isset($balita) ? htmlspecialchars($balita['berat_badan_lahir'] ?? '', ENT_QUOTES, 'UTF-8') : ''; ?>" required>
                         </div>
                         <div class="mb-3">
                             <label for="nama_ayah" class="form-label">Nama Ayah:</label>
-                            <input type="text" name="nama_ayah" id="nama_ayah" class="form-control" value="<?php echo isset($balita) ? htmlspecialchars($balita['nama_ayah']) : ''; ?>">
+                            <input type="text" name="nama_ayah" id="nama_ayah" class="form-control" value="<?php echo isset($balita) ? htmlspecialchars($balita['nama_ayah'] ?? '', ENT_QUOTES, 'UTF-8') : ''; ?>">
                         </div>
                         <div class="mb-3">
                             <label for="nama_ibu" class="form-label">Nama Ibu:</label>
-                            <input type="text" name="nama_ibu" id="nama_ibu" class="form-control" value="<?php echo isset($balita) ? htmlspecialchars($balita['nama_ibu']) : ''; ?>">
+                            <input type="text" name="nama_ibu" id="nama_ibu" class="form-control" value="<?php echo isset($balita) ? htmlspecialchars($balita['nama_ibu'] ?? '', ENT_QUOTES, 'UTF-8') : ''; ?>">
                         </div>
                         <div class="mb-3">
                             <label for="alamat" class="form-label">Alamat:</label>
-                            <input type="text" name="alamat" id="alamat" class="form-control" value="<?php echo isset($balita) ? htmlspecialchars($balita['alamat']) : ''; ?>">
+                            <input type="text" name="alamat" id="alamat" class="form-control" value="<?php echo isset($balita) ? htmlspecialchars($balita['alamat'] ?? '', ENT_QUOTES, 'UTF-8') : ''; ?>">
                         </div>
                         <div class="mb-3">
                             <label for="status" class="form-label">Status:</label>
@@ -276,6 +303,7 @@ $balitas = $db->query("SELECT * FROM balita_2")->fetchAll(PDO::FETCH_ASSOC);
                         <table class="table table-hover">
                             <thead>
                                 <tr>
+                                    <th>No</th>
                                     <th>ID</th>
                                     <th>Nama</th>
                                     <th>Jenis Kelamin</th>
@@ -284,16 +312,17 @@ $balitas = $db->query("SELECT * FROM balita_2")->fetchAll(PDO::FETCH_ASSOC);
                             </thead>
                             <tbody>
                                 <?php foreach ($balitas as $balita): ?>
-                                    <tr id="balita-row-<?php echo htmlspecialchars($balita['id_balita']); ?>">
-                                        <td><?php echo htmlspecialchars($balita['id_balita']); ?></td>
-                                        <td><?php echo htmlspecialchars($balita['nama_balita']); ?></td>
+                                    <tr id="balita-row-<?php echo htmlspecialchars($balita['id_balita'] ?? '', ENT_QUOTES, 'UTF-8'); ?>">
+                                        <td><?php echo htmlspecialchars($balita['no'] ?? '', ENT_QUOTES, 'UTF-8'); ?></td>
+                                        <td><?php echo htmlspecialchars($balita['id_balita'] ?? '', ENT_QUOTES, 'UTF-8'); ?></td>
+                                        <td><?php echo htmlspecialchars($balita['nama_balita'] ?? '', ENT_QUOTES, 'UTF-8'); ?></td>
                                         <td><?php echo $balita['jenis_kelamin'] === 'L' ? 'Laki-laki' : 'Perempuan'; ?></td>
                                         <td>
                                             <a href="?edit=<?php echo $balita['id_balita']; ?>" class="btn btn-sm btn-warning mb-1">
                                                 <i class="fas fa-edit"></i> Edit
                                             </a>
                                             <form method="post" style="display:inline;">
-                                                <input type="hidden" name="id_balita" value="<?php echo $balita['id_balita']; ?>">
+                                                <input type="hidden" name="id_balita" value="<?php echo htmlspecialchars($balita['id_balita'] ?? '', ENT_QUOTES, 'UTF-8'); ?>">
                                                 <button type="submit" name="action" value="delete" class="btn btn-sm btn-danger mb-1" onclick="return confirm('Yakin ingin menghapus data ini?')">
                                                     <i class="fas fa-trash-alt"></i> Delete
                                                 </button>
@@ -309,6 +338,7 @@ $balitas = $db->query("SELECT * FROM balita_2")->fetchAll(PDO::FETCH_ASSOC);
         </div>
     </div>
 </div>
+
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>

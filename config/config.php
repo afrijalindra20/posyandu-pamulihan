@@ -178,6 +178,31 @@ function getPengukuranByBulan2($db, $id_balita, $bulan) {
     return $result ? $result : [];
 }
 
+// Di dalam config.php
+function getBalita22AndPengukuran($db, $id_balita = null) {
+    $sql = "SELECT b.*, p.id_pengukuran, p.tanggal_pengukuran, p.berat_badan, p.tinggi_badan, p.status_gizi, p.bulan
+            FROM balita_2 b
+            LEFT JOIN pengukuran_balita_2 p ON b.id_balita = p.id_balita";
+    
+    if ($id_balita !== null) {
+        $sql .= " WHERE b.id_balita = :id_balita";
+        $stmt = $db->prepare($sql);
+        $stmt->execute([':id_balita' => $id_balita]);
+    } else {
+        $stmt = $db->query($sql);
+    }
+    
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
+function getAllPengukuran2($db, $id_balita) {
+    $query = "SELECT * FROM pengukuran_balita_2 WHERE id_balita = :id_balita ORDER BY tanggal_pengukuran";
+    $stmt = $db->prepare($query);
+    $stmt->bindParam(':id_balita', $id_balita, PDO::PARAM_INT);
+    $stmt->execute();
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
 function getBalita3AndPengukuran($db, $id_balita) {
     $sql = "SELECT b.*, p.id_pengukuran, p.tanggal_pengukuran, p.berat_badan, p.tinggi_badan, p.status_gizi, p.bulan
             FROM balita_3 b

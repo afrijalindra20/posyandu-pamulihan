@@ -1,0 +1,238 @@
+2024-08-12 12:25:07: Permintaan POST diterima
+2024-08-12 12:25:07: Aksi: import_csv
+2024-08-12 12:25:07: File diterima: coba import2.csv
+2024-08-12 12:25:28: Permintaan POST diterima
+2024-08-12 12:25:28: Aksi: import_csv
+2024-08-12 12:25:28: Error upload file
+2024-08-12 12:25:36: Permintaan POST diterima
+2024-08-12 12:25:36: Aksi: import_excel
+2024-08-12 12:25:36: Error upload file
+2024-08-12 12:25:51: Permintaan POST diterima
+2024-08-12 12:25:51: Aksi: import_csv
+2024-08-12 12:25:51: Error upload file
+2024-08-12 12:26:10: Permintaan POST diterima
+2024-08-12 12:26:10: Aksi: import_csv
+2024-08-12 12:26:10: File diterima: coba import2.csv
+2024-08-12 12:26:36: Permintaan POST diterima
+2024-08-12 12:26:36: Aksi: import_excel
+2024-08-12 12:26:36: File diterima: coba import excel.xlsx
+2024-08-12 12:31:24: Permintaan POST diterima
+2024-08-12 12:31:24: Aksi: import_excel
+2024-08-12 12:31:24: File diterima: coba import excel.xlsx
+2024-08-12 12:31:55: Permintaan POST diterima
+2024-08-12 12:31:55: Aksi: import_csv
+2024-08-12 12:31:55: File diterima: coba import2.csv
+2024-08-12 12:31:55: Impor berhasil
+2024-08-12 12:36:30: Permintaan POST diterima
+2024-08-12 12:36:30: Aksi: import_csv
+2024-08-12 12:36:30: File diterima: coba import2.csv
+2024-08-12 12:40:37: Permintaan POST diterima
+2024-08-12 12:40:37: Aksi: import_csv
+2024-08-12 12:40:37: File diterima: coba import2.csv
+2024-08-12 12:40:37: Impor berhasil
+2024-08-12 12:40:55: Permintaan POST diterima
+2024-08-12 12:40:55: Aksi: import_excel
+2024-08-12 12:40:55: File diterima: coba import excel.xlsx
+2024-08-12 12:40:55: Memulai impor Excel
+2024-08-12 12:53:07: Permintaan POST diterima
+2024-08-12 12:53:07: Aksi: import_excel
+2024-08-12 12:53:07: File diterima: coba import excel.xlsx
+2024-08-12 12:53:07: Memulai impor Excel
+2024-08-12 12:53:33: Permintaan POST diterima
+2024-08-12 12:53:41: Permintaan POST diterima
+2024-08-12 12:53:41: Aksi: export_csv
+2024-08-12 13:00:04: Permintaan POST diterima
+2024-08-12 13:00:04: Aksi: export_excel
+2024-08-12 13:00:31: Permintaan POST diterima
+2024-08-12 13:00:31: Aksi: export_csv
+2024-08-12 13:06:03: Permintaan POST diterima
+2024-08-12 13:06:03: Aksi: export_csv
+2024-08-12 13:08:30: Permintaan POST diterima
+2024-08-12 13:08:30: Aksi: import_csv
+2024-08-12 13:08:30: Error upload file
+2024-08-12 13:08:41: Permintaan POST diterima
+2024-08-12 13:08:41: Aksi: export_csv
+2024-08-12 13:10:03: Permintaan POST diterima
+2024-08-12 13:10:03: Aksi: export_excel
+2024-08-12 13:10:22: Permintaan POST diterima
+2024-08-12 13:10:22: Aksi: import_csv
+2024-08-12 13:10:22: Error upload file
+2024-08-12 13:10:27: Permintaan POST diterima
+2024-08-12 13:10:27: Aksi: export_csv
+2024-08-12 13:10:44: Permintaan POST diterima
+2024-08-12 13:10:44: Aksi: import_csv
+2024-08-12 13:10:44: File diterima: balita_data_2024-08-12 (3).csv
+2024-08-12 13:10:44: Impor berhasil
+2024-08-12 13:11:28: Permintaan POST diterima
+2024-08-12 13:11:28: Aksi: export_csv
+2024-08-12 13:12:19: Permintaan POST diterima
+2024-08-12 13:12:19: Aksi: export_csv
+2024-08-12 13:13:18: Permintaan POST diterima
+2024-08-12 13:13:18: Aksi: import_csv
+2024-08-12 13:13:18: File diterima: balita_data_2024-08-12 (6).csv
+2024-08-12 13:13:18: Impor berhasil
+2024-08-12 13:15:33: Permintaan POST diterima
+2024-08-12 13:15:33: Aksi: export_csv
+2024-08-12 13:22:20: Permintaan POST diterima
+2024-08-12 13:22:20: Aksi: export_csv
+2024-08-12 13:23:59: Permintaan POST diterima
+2024-08-12 13:23:59: Aksi: export_csv
+2024-08-12 13:24:56: Permintaan POST diterima
+2024-08-12 13:24:56: Aksi: export_csv
+2024-08-12 13:36:32: Permintaan POST diterima
+2024-08-12 13:36:32: Aksi: import_csv
+2024-08-12 13:36:32: File diterima: balita_data_2024-08-12 (10) - balita_data_2024-08-12 (10).csv.csv
+2024-08-12 13:36:32: Impor berhasil
+2024-08-12 14:20:58: Permintaan POST diterima
+2024-08-12 14:20:58: Aksi: export_excel
+2024-08-12 14:20:59: Permintaan POST diterima
+2024-08-12 14:20:59: Aksi: export_excel
+2024-08-12 14:21:43: Permintaan POST diterima
+2024-08-12 14:21:46: Permintaan POST diterima
+2024-08-12 14:21:46: Aksi: export_excel
+2024-08-12 14:33:03: Permintaan POST diterima
+2024-08-12 14:33:06: Permintaan POST diterima
+2024-08-12 14:33:06: Aksi: export_excel
+2024-08-12 14:33:24: Permintaan POST diterima
+2024-08-12 14:33:29: Permintaan POST diterima
+2024-08-12 14:33:33: Permintaan POST diterima
+2024-08-12 14:33:33: Aksi: export_excel
+2024-08-12 14:36:42: Permintaan POST diterima
+2024-08-12 14:36:43: Permintaan POST diterima
+2024-08-12 14:36:43: Aksi: export_excel
+2024-08-12 14:40:26: Permintaan POST diterima
+2024-08-12 14:40:28: Permintaan POST diterima
+2024-08-12 14:40:28: Aksi: export_excel
+2024-08-12 14:40:48: Permintaan POST diterima
+2024-08-12 14:40:51: Permintaan POST diterima
+2024-08-12 14:40:51: Aksi: export_excel
+2024-08-12 14:41:05: Permintaan POST diterima
+2024-08-12 14:41:08: Permintaan POST diterima
+2024-08-12 14:41:10: Permintaan POST diterima
+2024-08-12 14:41:10: Aksi: export_excel
+2024-08-12 14:43:44: Permintaan POST diterima
+2024-08-12 14:43:46: Permintaan POST diterima
+2024-08-12 14:43:46: Aksi: export_excel
+2024-08-12 14:45:06: Permintaan POST diterima
+2024-08-12 14:45:09: Permintaan POST diterima
+2024-08-12 14:45:09: Aksi: export_excel
+2024-08-12 14:50:46: Permintaan POST diterima
+2024-08-12 14:50:47: Permintaan POST diterima
+2024-08-12 14:50:47: Aksi: export_excel
+2024-08-12 14:50:52: Permintaan POST diterima
+2024-08-12 14:50:54: Permintaan POST diterima
+2024-08-12 14:50:56: Permintaan POST diterima
+2024-08-12 14:50:56: Aksi: export_excel
+2024-08-12 14:57:46: Permintaan POST diterima
+2024-08-12 14:57:51: Permintaan POST diterima
+2024-08-12 14:57:53: Permintaan POST diterima
+2024-08-12 14:57:53: Aksi: export_excel
+2024-08-12 14:58:41: Permintaan POST diterima
+2024-08-12 14:58:43: Permintaan POST diterima
+2024-08-12 14:58:43: Aksi: export_excel
+2024-08-12 15:03:10: Permintaan POST diterima
+2024-08-12 15:03:12: Permintaan POST diterima
+2024-08-12 15:03:14: Permintaan POST diterima
+2024-08-12 15:03:14: Aksi: export_excel
+2024-08-12 15:05:39: Permintaan POST diterima
+2024-08-12 15:05:41: Permintaan POST diterima
+2024-08-12 15:05:41: Aksi: export_excel
+2024-08-12 15:08:34: Permintaan POST diterima
+2024-08-12 15:08:34: Aksi: export_csv
+2024-08-12 15:08:51: Permintaan POST diterima
+2024-08-12 15:08:51: Aksi: export_excel
+2024-08-12 15:09:03: Permintaan POST diterima
+2024-08-12 15:09:07: Permintaan POST diterima
+2024-08-12 15:09:10: Permintaan POST diterima
+2024-08-12 15:09:12: Permintaan POST diterima
+2024-08-12 15:09:12: Aksi: export_excel
+2024-08-12 15:09:21: Permintaan POST diterima
+2024-08-12 15:09:23: Permintaan POST diterima
+2024-08-12 15:09:23: Aksi: export_excel
+2024-08-12 15:09:33: Permintaan POST diterima
+2024-08-12 15:09:33: Aksi: export_excel
+2024-08-12 15:09:48: Permintaan POST diterima
+2024-08-12 15:10:03: Permintaan POST diterima
+2024-08-12 15:10:09: Permintaan POST diterima
+2024-08-12 15:10:12: Permintaan POST diterima
+2024-08-12 15:10:12: Aksi: export_excel
+2024-08-12 15:10:34: Permintaan POST diterima
+2024-08-12 15:10:36: Permintaan POST diterima
+2024-08-12 15:10:36: Aksi: export_excel
+2024-08-12 15:10:45: Permintaan POST diterima
+2024-08-12 15:10:47: Permintaan POST diterima
+2024-08-12 15:10:47: Aksi: export_excel
+2024-08-12 15:11:21: Permintaan POST diterima
+2024-08-12 15:11:36: Permintaan POST diterima
+2024-08-12 15:15:15: Permintaan POST diterima
+2024-08-12 15:15:16: Permintaan POST diterima
+2024-08-12 15:15:19: Permintaan POST diterima
+2024-08-12 15:15:19: Aksi: export_excel
+2024-08-12 15:15:41: Permintaan POST diterima
+2024-08-12 15:15:44: Permintaan POST diterima
+2024-08-12 15:15:44: Aksi: export_excel
+2024-08-12 15:16:15: Permintaan POST diterima
+2024-08-12 15:16:19: Permintaan POST diterima
+2024-08-12 15:16:21: Permintaan POST diterima
+2024-08-12 15:16:21: Aksi: export_excel
+2024-08-12 15:16:35: Permintaan POST diterima
+2024-08-12 15:16:39: Permintaan POST diterima
+2024-08-12 15:16:42: Permintaan POST diterima
+2024-08-12 15:16:42: Aksi: export_excel
+2024-08-12 15:20:56: Permintaan POST diterima
+2024-08-12 15:20:59: Permintaan POST diterima
+2024-08-12 15:21:01: Permintaan POST diterima
+2024-08-12 15:21:01: Aksi: export_excel
+2024-08-12 15:22:05: Permintaan POST diterima
+2024-08-12 15:22:06: Permintaan POST diterima
+2024-08-12 15:22:06: Aksi: export_excel
+2024-08-12 15:25:57: Permintaan POST diterima
+2024-08-12 15:25:59: Permintaan POST diterima
+2024-08-12 15:26:01: Permintaan POST diterima
+2024-08-12 15:26:01: Aksi: export_excel
+2024-08-12 15:26:13: Permintaan POST diterima
+2024-08-12 15:26:15: Permintaan POST diterima
+2024-08-12 15:26:15: Aksi: export_excel
+2024-08-12 15:26:32: Permintaan POST diterima
+2024-08-12 15:26:34: Permintaan POST diterima
+2024-08-12 15:26:34: Aksi: export_excel
+2024-08-12 15:27:27: Permintaan POST diterima
+2024-08-12 15:27:36: Permintaan POST diterima
+2024-08-12 15:27:36: Aksi: print
+2024-08-12 15:28:19: Permintaan POST diterima
+2024-08-12 15:28:20: Permintaan POST diterima
+2024-08-12 15:28:20: Aksi: export_excel
+2024-08-12 15:36:08: Permintaan POST diterima
+2024-08-12 15:36:11: Permintaan POST diterima
+2024-08-12 15:36:11: Aksi: export_pdf
+2024-08-12 15:36:35: Permintaan POST diterima
+2024-08-12 15:36:39: Permintaan POST diterima
+2024-08-12 15:36:39: Aksi: export_pdf
+2024-08-12 15:36:51: Permintaan POST diterima
+2024-08-12 15:37:01: Permintaan POST diterima
+2024-08-12 15:37:01: Aksi: export_pdf
+2024-08-12 15:40:50: Permintaan POST diterima
+2024-08-12 15:40:57: Permintaan POST diterima
+2024-08-12 15:40:57: Aksi: export_excel
+2024-08-12 15:41:11: Permintaan POST diterima
+2024-08-12 15:41:11: Aksi: export_pdf
+2024-08-12 15:41:30: Permintaan POST diterima
+2024-08-12 15:41:32: Permintaan POST diterima
+2024-08-12 15:41:32: Aksi: export_excel
+2024-08-12 15:41:41: Permintaan POST diterima
+2024-08-12 15:41:41: Aksi: export_pdf
+2024-08-12 15:43:03: Permintaan POST diterima
+2024-08-12 15:43:07: Permintaan POST diterima
+2024-08-12 15:43:07: Aksi: export_pdf
+2024-08-12 15:44:20: Permintaan POST diterima
+2024-08-12 15:44:23: Permintaan POST diterima
+2024-08-12 15:44:23: Aksi: export_pdf
+2024-08-12 15:46:21: Permintaan POST diterima
+2024-08-12 15:46:24: Permintaan POST diterima
+2024-08-12 16:02:17: Permintaan POST diterima
+2024-08-12 16:02:22: Permintaan POST diterima
+2024-08-12 16:07:12: Permintaan POST diterima
+2024-08-12 16:07:12: Aksi: print
+2024-08-12 16:09:23: Permintaan POST diterima
+2024-08-12 16:09:30: Permintaan POST diterima
+2024-08-12 16:09:30: Aksi: print

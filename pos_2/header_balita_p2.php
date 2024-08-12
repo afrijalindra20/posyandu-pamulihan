@@ -70,6 +70,9 @@ function isActive($page) {
                     <li class="nav-item">
                         <a class="nav-link <?php echo isActive('balita_p2_eip.php'); ?>" href="../posyandu_2/balita_p2_eip.php"><i class="fas fa-ruler"></i> export/import Balita</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link <?php echo isActive('balita_p2_file.php'); ?>" href="../posyandu_2/balita_p2_file.php"><i class="fas fa-baby"></i> export/import Balita</a>
+                    </li>
 
             
                 </ul>

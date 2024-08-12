@@ -25,9 +25,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             'bulan' => $_POST['bulan']
         ];
 
-        if ($action === 'add') {
-            $stmt = $db->prepare("INSERT INTO pengukuran_balita_2 (no, id_balita, tanggal_pengukuran, berat_badan, tinggi_badan, status_gizi, bulan) VALUES (?, ?, ?, ?, ?, ?, ?)");
-            $stmt->execute(array_values($data));
+       // Modify the 'add' action in the form submission handling section
+if ($action === 'add') {
+    if (empty($_POST['no'])) {
+        $stmt = $db->query("SELECT MAX(no) as max_no FROM pengukuran_balita_2");
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        $data['no'] = ($result['max_no'] ?? 0) + 1;
+    }
+    $stmt = $db->prepare("INSERT INTO pengukuran_balita_2 (no, id_balita, tanggal_pengukuran, berat_badan, tinggi_badan, status_gizi, bulan) VALUES (?, ?, ?, ?, ?, ?, ?)");
+    $stmt->execute(array_values($data));
+
         } elseif ($action === 'edit') {
             $data['id_pengukuran'] = $_POST['id_pengukuran'];
             $stmt = $db->prepare("UPDATE pengukuran_balita_2 SET no = ?, id_balita = ?, tanggal_pengukuran = ?, berat_badan = ?, tinggi_badan = ?, status_gizi = ?, bulan = ? WHERE id_pengukuran = ?");
@@ -53,6 +60,12 @@ if (isset($_GET['edit'])) {
 
 // Mengambil daftar semua balita untuk dropdown
 $balitas = $db->query("SELECT id_balita, nama_balita FROM balita_2")->fetchAll(PDO::FETCH_ASSOC);
+
+// Add this code after the line that fetches $balitas
+// Get the last used number
+$stmt = $db->query("SELECT MAX(no) as max_no FROM pengukuran_balita_2");
+$result = $stmt->fetch(PDO::FETCH_ASSOC);
+$last_no = $result['max_no'] ?? 0;
 
 // Mengambil daftar semua pengukuran balita
 $pengukuran_balitas = $db->query("SELECT p.*, b.nama_balita FROM pengukuran_balita_2 p JOIN balita_2 b ON p.id_balita = b.id_balita ORDER BY p.no ASC")->fetchAll(PDO::FETCH_ASSOC);
@@ -210,9 +223,10 @@ $bulan_list = ['januari', 'februari', 'maret', 'april', 'mei', 'juni', 'juli', '
                     <form method="post">
                         <input type="hidden" name="id_pengukuran" value="<?php echo isset($pengukuran) ? htmlspecialchars($pengukuran['id_pengukuran']) : ''; ?>">
                         
+                      <!-- Replace the existing 'no' input field with this -->
                         <div class="mb-3">
                             <label for="no" class="form-label">No:</label>
-                            <input type="number" name="no" id="no" class="form-control" value="<?php echo isset($pengukuran) ? htmlspecialchars($pengukuran['no']) : ''; ?>" required>
+                            <input type="number" name="no" id="no" class="form-control" value="<?php echo isset($pengukuran) ? htmlspecialchars($pengukuran['no']) : ''; ?>">
                         </div>
                         
                         <div class="mb-3">
@@ -289,13 +303,13 @@ $bulan_list = ['januari', 'februari', 'maret', 'april', 'mei', 'juni', 'juli', '
                             <tbody>
                                 <?php foreach ($pengukuran_balitas as $pengukuran): ?>
                                     <tr>
-                                        <td><?php echo htmlspecialchars($pengukuran['no']); ?></td>
-                                        <td><?php echo htmlspecialchars($pengukuran['nama_balita']); ?></td>
-                                        <td><?php echo htmlspecialchars($pengukuran['tanggal_pengukuran']); ?></td>
-                                        <td><?php echo htmlspecialchars($pengukuran['berat_badan']); ?></td>
-                                        <td><?php echo htmlspecialchars($pengukuran['tinggi_badan']); ?></td>
-                                        <td><?php echo htmlspecialchars($pengukuran['status_gizi']); ?></td>
-                                        <td><?php echo htmlspecialchars(ucfirst($pengukuran['bulan'])); ?></td>
+                                    <td><?php echo htmlspecialchars($pengukuran['no'] ?? ''); ?></td>
+                                        <td><?php echo htmlspecialchars($pengukuran['nama_balita'] ?? ''); ?></td>
+                                        <td><?php echo htmlspecialchars($pengukuran['tanggal_pengukuran'] ?? ''); ?></td>
+                                        <td><?php echo htmlspecialchars($pengukuran['berat_badan'] ?? ''); ?></td>
+                                        <td><?php echo htmlspecialchars($pengukuran['tinggi_badan'] ?? ''); ?></td>
+                                        <td><?php echo htmlspecialchars($pengukuran['status_gizi'] ?? ''); ?></td>
+                                        <td><?php echo htmlspecialchars(ucfirst($pengukuran['bulan'] ?? '')); ?></td>
                                         <td>
                                             <a href="?edit=<?php echo $pengukuran['id_pengukuran']; ?>" class="btn btn-sm btn-warning mb-1">
                                                 <i class="fas fa-edit"></i> Edit
@@ -326,6 +340,27 @@ $bulan_list = ['januari', 'februari', 'maret', 'april', 'mei', 'juni', 'juli', '
         if (selectedBalita) {
             const index = balitas.indexOf(selectedBalita) + 1;
             document.getElementById('no').value = index;
+        }
+    }
+    // Replace the existing fillNoBasedOnBalita function with this
+    let lastUsedNo = <?php echo $last_no; ?>;
+    function fillNoBasedOnBalita(id_balita) {
+        const balitas = <?php echo json_encode($balitas); ?>;
+        const selectedBalita = balitas.find(balita => balita.id_balita == id_balita);
+        const noInput = document.getElementById('no');
+        
+        if (selectedBalita) {
+            const existingMeasurements = <?php echo json_encode($pengukuran_balitas); ?>;
+            const balitaMeasurement = existingMeasurements.find(m => m.id_balita == id_balita);
+            
+            if (balitaMeasurement && balitaMeasurement.no) {
+                noInput.value = balitaMeasurement.no;
+            } else {
+                lastUsedNo++;
+                noInput.value = lastUsedNo;
+            }
+        } else {
+            noInput.value = '';
         }
     }
 
