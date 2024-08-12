@@ -68,10 +68,7 @@ function isActive($page) {
                         <a class="nav-link <?php echo isActive('balita_crud_p2.php'); ?>" href="../posyandu_2/balita_crud_p2.php"><i class="fas fa-ruler"></i> pengukuran Balita</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link <?php echo isActive('balita_p2_eip.php'); ?>" href="../posyandu_2/balita_p2_eip.php"><i class="fas fa-ruler"></i> export/import Balita</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link <?php echo isActive('balita_p2_file.php'); ?>" href="../posyandu_2/balita_p2_file.php"><i class="fas fa-baby"></i> export/import Balita</a>
+                        <a class="nav-link <?php echo isActive('balita_p2_file.php'); ?>" href="../posyandu_2/balita_p2_file.php"><i class="fas fa-user"></i> Transfer Data Balita</a>
                     </li>
 
             

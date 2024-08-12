@@ -5,6 +5,7 @@ require_once __DIR__ . '/../config/config.php';
 require_once __DIR__ . '/../pos_2/header_balita_p2.php';
 require_once __DIR__ . '/../vendor/autoload.php';
 
+
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use FPDF\FPDF;
@@ -12,46 +13,101 @@ use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
 
+
+
 function logMessage($message) {
     file_put_contents('import_log.txt', date('Y-m-d H:i:s') . ': ' . $message . "\n", FILE_APPEND);
 }
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    logMessage("Permintaan POST diterima");
-    if (isset($_POST['action'])) {
-        $action = $_POST['action'];
-        logMessage("Aksi: " . $action);
-        
-        if ($action == 'import_csv' || $action == 'import_excel') {
-            if (isset($_FILES['import_file']) && $_FILES['import_file']['error'] == UPLOAD_ERR_OK) {
-                $uploadedFile = $_FILES['import_file']['tmp_name'];
-                $originalFileName = $_FILES['import_file']['name'];
-                logMessage("File diterima: " . $originalFileName);
-                
-                if ($action == 'import_csv') {
-                    $importedData = importFromCSV($uploadedFile, $db);
-                } else {
-                    $importedData = importFromExcel($uploadedFile, $db);
-                }
-                
-                if ($importedData) {
-                    $_SESSION['message'] = "Data berhasil diimpor.";
-                    logMessage("Impor berhasil");
-                } else {
-                    $_SESSION['message'] = "Gagal mengimpor data.";
-                    logMessage("Impor gagal");
-                }
-            } else {
-                $_SESSION['message'] = "Error saat upload file.";
-                logMessage("Error upload file");
-            }
-            
-            header('Location: ' . $_SERVER['PHP_SELF']);
-            exit;
-        }
-    }
+function logImport($message) {
+    $logFile = __DIR__ . '/import_log.txt';
+    $timestamp = date('Y-m-d H:i:s');
+    file_put_contents($logFile, "[$timestamp] $message\n", FILE_APPEND);
 }
 
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    error_log('POST request received: ' . print_r($_POST, true));
+    if (isset($_POST['action'])) {
+        $action = $_POST['action'];
+        if ($action == 'import_csv' || $action == 'import_balita_csv') {
+            if (isset($_FILES['import_file']) && $_FILES['import_file']['error'] == UPLOAD_ERR_OK) {
+                $uploadedFile = $_FILES['import_file']['tmp_name'];
+                if ($action == 'import_csv') {
+                    $result = importFromCSV($uploadedFile, $db);
+                } else {
+                    $result = importBalitaFromCSV($uploadedFile, $db);
+                }
+                if ($result['success']) {
+                    $_SESSION['message'] = $result['message'];
+                } else {
+                    $_SESSION['error'] = $result['message'];
+                }
+            } else {
+                $_SESSION['error'] = "Error saat upload file.";
+            }
+            header('Location: ' . $_SERVER['PHP_SELF']);
+            exit;
+        } else {
+            // Handle export and print actions
+
+        $id_balita = isset($_POST['id_balita']) ? (int)$_POST['id_balita'] : 1;
+        $bulan = isset($_POST['bulan']) ? $_POST['bulan'] : 'all';
+
+        $balitaData = getBalita2AndPengukuran($db, $id_balita);
+        if ($bulan === 'all') {
+            $pengukuranData = getAllPengukuran2($db, $id_balita);
+        } else {
+            $pengukuranData = getPengukuranByBulan2($db, $id_balita, $bulan);
+        }
+
+        $namaBalita = !empty($balitaData) ? $balitaData[0]['nama_balita'] : 'Unknown';
+        $filename = "balita_data_" . $namaBalita . "_" . ($bulan === 'all' ? 'semua_bulan' : $bulan) . "_" . date('Y-m-d');
+
+        $exportInfo = prepareDataForExport($balitaData, $pengukuranData);
+
+        try {
+            switch ($action) {
+                case 'export_excel':
+                    ob_end_clean();
+                    exportToExcel($exportInfo, $filename);
+                    exit;
+                    case 'export_pdf':
+                        ob_end_clean();
+                        exportToPDF($exportInfo, $filename);
+                        header('Content-Type: application/pdf');
+                        header('Content-Disposition: attachment; filename="' . $filename . '.pdf"');
+                        readfile($filename . '.pdf');
+                        unlink($filename . '.pdf'); // Hapus file setelah diunduh
+                        exit;
+                case 'export_csv':
+                    ob_end_clean();
+                    exportToCSV($exportInfo, $filename);
+                    exit;
+                case 'print':
+                    ob_end_clean();
+                    printData($exportInfo);
+                    exit;
+               
+            }
+        } catch (Exception $e) {
+            error_log('Error during action: ' . $e->getMessage());
+            $_SESSION['error'] = "Terjadi kesalahan: " . $e->getMessage();
+        }
+        
+        header('Location: ' . $_SERVER['PHP_SELF']);
+        exit;
+    }
+}
+}
+
+if (isset($_SESSION['message'])) {
+    echo '<div class="alert alert-success">' . $_SESSION['message'] . '</div>';
+    unset($_SESSION['message']);
+}
+if (isset($_SESSION['error'])) {
+    echo '<div class="alert alert-danger">' . $_SESSION['error'] . '</div>';
+    unset($_SESSION['error']);
+}
 
 // Periksa apakah pengguna sudah login
 if (!isset($_SESSION['user'])) {
@@ -276,6 +332,176 @@ function printData($exportInfo) {
     $pdf->Output();
 }
 
+function importFromCSV($filename, $db) {
+    logImport("Mulai impor file: $filename");
+    $successCount = 0;
+    $errors = [];
+
+    try {
+        if (($handle = fopen($filename, "r")) !== FALSE) {
+            logImport("File berhasil dibuka");
+            fgetcsv($handle, 1000, ",");
+            
+            $db->beginTransaction();
+            logImport("Transaksi database dimulai");
+
+            $stmt = $db->prepare("INSERT INTO pengukuran_balita_2 (id_balita, tanggal_pengukuran, berat_badan, tinggi_badan, status_gizi, bulan) VALUES (?, ?, ?, ?, ?, ?)");
+            
+            $lineNumber = 2;
+            while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
+                logImport("Membaca baris $lineNumber: " . implode(", ", $data));
+                
+                if (count($data) != 6) {
+                    $errors[] = "Baris $lineNumber: Jumlah kolom tidak sesuai";
+                    logImport("Error: Jumlah kolom tidak sesuai pada baris $lineNumber");
+                    continue;
+                }
+
+                $id_balita = filter_var($data[0], FILTER_VALIDATE_INT);
+                $tanggal_pengukuran = date('Y-m-d', strtotime($data[1]));
+                $berat_badan = filter_var($data[2], FILTER_VALIDATE_FLOAT);
+                $tinggi_badan = filter_var($data[3], FILTER_VALIDATE_FLOAT);
+                $status_gizi = trim($data[4]);
+                $bulan = trim($data[5]);
+
+                if ($id_balita === false || $berat_badan === false || $tinggi_badan === false) {
+                    $errors[] = "Baris $lineNumber: Format data tidak valid";
+                    logImport("Error: Format data tidak valid pada baris $lineNumber");
+                    continue;
+                }
+
+                if (!$stmt->execute([$id_balita, $tanggal_pengukuran, $berat_badan, $tinggi_badan, $status_gizi, $bulan])) {
+                    $errors[] = "Baris $lineNumber: " . implode(", ", $stmt->errorInfo());
+                    logImport("Error database pada baris $lineNumber: " . implode(", ", $stmt->errorInfo()));
+                    continue;
+                }
+
+                $successCount++;
+                logImport("Baris $lineNumber berhasil diimpor");
+                $lineNumber++;
+            }
+            
+            fclose($handle);
+
+            if (empty($errors)) {
+                $db->commit();
+                logImport("Transaksi berhasil. $successCount data diimpor.");
+                return ["success" => true, "message" => "$successCount data berhasil diimpor."];
+            } else {
+                $db->rollBack();
+                logImport("Transaksi dibatalkan karena ada error.");
+                return ["success" => false, "message" => "Impor gagal. " . implode("; ", $errors)];
+            }
+        }
+    } catch (PDOException $e) {
+        $db->rollBack();
+        logImport("Error PDO: " . $e->getMessage());
+        return ["success" => false, "message" => "Error database: " . $e->getMessage()];
+    } catch (Exception $e) {
+        $db->rollBack();
+        logImport("Error umum: " . $e->getMessage());
+        return ["success" => false, "message" => "Error umum: " . $e->getMessage()];
+    }
+
+    logImport("Gagal membuka file CSV.");
+    return ["success" => false, "message" => "Gagal membuka file CSV."];
+}
+
+function importBalitaFromCSV($filename, $db) {
+    logImport("Mulai impor file balita: $filename");
+    $successCount = 0;
+    $errors = [];
+
+    try {
+        if (($handle = fopen($filename, "r")) !== FALSE) {
+            logImport("File balita berhasil dibuka");
+            fgetcsv($handle, 1000, ","); // Skip header row
+            
+            $db->beginTransaction();
+            logImport("Transaksi database dimulai");
+
+            $stmt = $db->prepare("INSERT INTO balita_2 (id_balita, nama_balita, jenis_kelamin, nik, tanggal_lahir, berat_badan_lahir, nama_ayah, nama_ibu, alamat, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+            
+            $lineNumber = 2;
+            while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
+                logImport("Membaca baris $lineNumber: " . implode(", ", $data));
+                
+                if (count($data) != 10) {
+                    $errors[] = "Baris $lineNumber: Jumlah kolom tidak sesuai";
+                    logImport("Error: Jumlah kolom tidak sesuai pada baris $lineNumber");
+                    continue;
+                }
+
+                $id_balita = filter_var($data[0], FILTER_VALIDATE_INT);
+                $nama_balita = trim($data[1]);
+                $jenis_kelamin = trim($data[2]);
+                $nik = trim($data[3]);
+                $tanggal_lahir = date('Y-m-d', strtotime($data[4]));
+                $berat_badan_lahir = filter_var($data[5], FILTER_VALIDATE_FLOAT);
+                $nama_ayah = trim($data[6]);
+                $nama_ibu = trim($data[7]);
+                $alamat = trim($data[8]);
+                $status = trim($data[9]);
+
+                if ($id_balita === false || $berat_badan_lahir === false) {
+                    $errors[] = "Baris $lineNumber: Format data tidak valid";
+                    logImport("Error: Format data tidak valid pada baris $lineNumber");
+                    continue;
+                }
+
+                if (!$stmt->execute([$id_balita, $nama_balita, $jenis_kelamin, $nik, $tanggal_lahir, $berat_badan_lahir, $nama_ayah, $nama_ibu, $alamat, $status])) {
+                    $errors[] = "Baris $lineNumber: " . implode(", ", $stmt->errorInfo());
+                    logImport("Error database pada baris $lineNumber: " . implode(", ", $stmt->errorInfo()));
+                    continue;
+                }
+
+                $successCount++;
+                logImport("Baris $lineNumber berhasil diimpor");
+                $lineNumber++;
+            }
+            
+            fclose($handle);
+
+            if (empty($errors)) {
+                $db->commit();
+                logImport("Transaksi berhasil. $successCount data balita diimpor.");
+                return ["success" => true, "message" => "$successCount data balita berhasil diimpor."];
+            } else {
+                $db->rollBack();
+                logImport("Transaksi dibatalkan karena ada error.");
+                return ["success" => false, "message" => "Impor balita gagal. " . implode("; ", $errors)];
+            }
+        }
+    } catch (PDOException $e) {
+        $db->rollBack();
+        logImport("Error PDO: " . $e->getMessage());
+        return ["success" => false, "message" => "Error database: " . $e->getMessage()];
+    } catch (Exception $e) {
+        $db->rollBack();
+        logImport("Error umum: " . $e->getMessage());
+        return ["success" => false, "message" => "Error umum: " . $e->getMessage()];
+    }
+
+    logImport("Gagal membuka file CSV balita.");
+    return ["success" => false, "message" => "Gagal membuka file CSV balita."];
+}
+
+function exportToCSV($exportInfo, $filename) {
+    header('Content-Type: text/csv');
+    header('Content-Disposition: attachment; filename="' . $filename . '.csv"');
+    
+    $output = fopen('php://output', 'w');
+    
+    // Use UTF-8 encoding
+    fprintf($output, chr(0xEF).chr(0xBB).chr(0xBF));
+    
+    foreach ($exportInfo['data'] as $row) {
+        fputcsv($output, $row);
+    }
+    
+    fclose($output);
+}
+
 // Handle export, import, dan print requests
 if (isset($_POST['action'])) {
     $action = $_POST['action'];
@@ -337,6 +563,7 @@ if (isset($_POST['action'])) {
             readfile($filename . '.pdf');
             unlink($filename . '.pdf');
             exit;
+            
             case 'print':
                 ob_end_clean(); // Bersihkan output buffer
                 ob_start(); // Mulai output buffering baru
@@ -351,6 +578,10 @@ if (isset($_POST['action'])) {
                 // Keluarkan konten PDF
                 echo $pdfContent;
                 exit;
+                case 'export_csv':  // New case for CSV export
+                    ob_end_clean();
+                    exportToCSV($exportInfo, $filename);
+                    exit;
             // ... (case lainnya jika ada)
         // Tambahkan case untuk aksi ekspor lainnya di sini
     }
@@ -615,34 +846,36 @@ if (isset($_POST['action'])) {
         </div>
     </div>
 </div>
-<!-- New section: Aksi Data -->
-<div class="container mb-5">
-    <div class="card">
-        <div class="card-header bg-primary text-white">
-            <h5 class="mb-0">Aksi Data</h5>
-        </div>
-        <div class="card-body">
-        <form method="POST" enctype="multipart/form-data" class="row g-3">
+        <!-- New section: Aksi Data -->
+        <div class="container mb-5">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">Aksi Data</h5>
+                </div>
+                <div class="card-body">
+                <form method="POST" action="<?php echo $_SERVER['PHP_SELF']; ?>" enctype="multipart/form-data" class="row g-3">
     <input type="hidden" name="id_balita" value="<?php echo htmlspecialchars($id_balita); ?>">
     <input type="hidden" name="bulan" value="<?php echo htmlspecialchars($bulan); ?>">
-                <div class="col-md-4">
-                    <label for="actionSelect" class="form-label">Pilih Aksi:</label>
-                    <select name="action" class="form-select" id="actionSelect">
-                        <option value="export_excel">Export Excel</option>
-                        <option value="export_pdf">Export PDF</option>
-                        <option value="import_excel">Import Excel</option>
-                        <option value="print">Cetak</option>
-                    </select>
-                </div>
-                <div class="col-md-4">
-                    <label for="importFile" class="form-label">File Import:</label>
-                    <input type="file" name="import_file" id="importFile" class="form-control" style="display: none;">
-                </div>
-                <div class="col-md-4">
-                    <label class="form-label">&nbsp;</label>
-                    <button type="submit" class="btn btn-success w-100">Proses</button>
-                </div>
-            </form>
+    <div class="col-md-4">
+        <label for="actionSelect" class="form-label">Pilih Aksi:</label>
+        <select name="action" class="form-select" id="actionSelect">
+            <option value="export_excel">Export Excel</option>
+            <option value="export_pdf">Export PDF</option>
+            <option value="export_csv">Export CSV</option>
+            <option value="import_csv">Import CSV Pengukuran</option>
+            <option value="import_balita_csv">Import CSV Balita</option>
+            <option value="print">Cetak</option>
+        </select>
+    </div>
+    <div class="col-md-4">
+        <label for="importFile" class="form-label">File Import:</label>
+        <input type="file" name="import_file" id="importFile" class="form-control" accept=".csv" style="display: none;">
+    </div>
+    <div class="col-md-4">
+        <label class="form-label">&nbsp;</label>
+        <button type="submit" class="btn btn-success w-100">Proses</button>
+    </div>
+</form>
         </div>
     </div>
 </div>
@@ -654,9 +887,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const importFile = document.getElementById('importFile');
 
     actionSelect.addEventListener('change', function() {
-        if (this.value === 'import_csv' || this.value === 'import_excel') {
+        if (this.value === 'import_csv' || this.value === 'import_balita_csv') {
             importFile.style.display = 'block';
-            importFile.setAttribute('accept', this.value === 'import_csv' ? '.csv' : '.xlsx,.xls');
         } else {
             importFile.style.display = 'none';
         }

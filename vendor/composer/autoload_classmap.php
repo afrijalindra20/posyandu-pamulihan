@@ -7,6 +7,7 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'Composer\\InstalledVersions' => $vendorDir . '/composer/InstalledVersions.php',
+    'Shuchkin\\SimpleXLSX' => $vendorDir . '/shuchkin/simplexlsx/src/SimpleXLSX.php',
     'XLSXWriter' => $vendorDir . '/mk-j/php_xlsxwriter/xlsxwriter.class.php',
     'XLSXWriter_BuffererWriter' => $vendorDir . '/mk-j/php_xlsxwriter/xlsxwriter.class.php',
 );

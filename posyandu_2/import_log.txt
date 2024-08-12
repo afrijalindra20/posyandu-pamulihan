@@ -236,3 +236,79 @@
 2024-08-12 16:09:23: Permintaan POST diterima
 2024-08-12 16:09:30: Permintaan POST diterima
 2024-08-12 16:09:30: Aksi: print
+2024-08-12 16:12:29: Permintaan POST diterima
+2024-08-12 16:12:38: Permintaan POST diterima
+2024-08-12 16:12:38: Aksi: print
+2024-08-12 16:17:21: Permintaan POST diterima
+2024-08-12 17:40:48: Permintaan POST diterima
+2024-08-12 17:40:48: Aksi: import_csv
+2024-08-12 17:40:48: File diterima: import csv coba .csv
+2024-08-12 17:40:48: Impor berhasil
+[2024-08-12 17:46:44] Mulai impor file: C:\xampp\tmp\php7858.tmp
+[2024-08-12 17:46:44] File berhasil dibuka
+[2024-08-12 17:46:44] Transaksi database dimulai
+[2024-08-12 17:46:44] Membaca baris 2: ID Balita, 7, , , 
+[2024-08-12 17:46:44] Error: Jumlah kolom tidak sesuai pada baris 2
+[2024-08-12 17:46:44] Membaca baris 2: Nama Balita, anya, , , 
+[2024-08-12 17:46:44] Error: Jumlah kolom tidak sesuai pada baris 2
+[2024-08-12 17:46:44] Membaca baris 2: Jenis Kelamin, P, , , 
+[2024-08-12 17:46:44] Error: Jumlah kolom tidak sesuai pada baris 2
+[2024-08-12 17:46:44] Membaca baris 2: NIK, 3275010101010007, , , 
+[2024-08-12 17:46:44] Error: Jumlah kolom tidak sesuai pada baris 2
+[2024-08-12 17:46:44] Membaca baris 2: Tanggal Lahir, 2022-05-05, , , 
+[2024-08-12 17:46:44] Error: Jumlah kolom tidak sesuai pada baris 2
+[2024-08-12 17:46:44] Membaca baris 2: Berat Badan Lahir, 3100, , , 
+[2024-08-12 17:46:44] Error: Jumlah kolom tidak sesuai pada baris 2
+[2024-08-12 17:46:44] Membaca baris 2: Nama Ayah, Hadi Hartono, , , 
+[2024-08-12 17:46:44] Error: Jumlah kolom tidak sesuai pada baris 2
+[2024-08-12 17:46:44] Membaca baris 2: Nama Ibu, Rina Wati, , , 
+[2024-08-12 17:46:44] Error: Jumlah kolom tidak sesuai pada baris 2
+[2024-08-12 17:46:44] Membaca baris 2: Alamat, Dusun Pahing RT 10 RW 02, , , 
+[2024-08-12 17:46:44] Error: Jumlah kolom tidak sesuai pada baris 2
+[2024-08-12 17:46:44] Membaca baris 2: Status, Aktif, , , 
+[2024-08-12 17:46:44] Error: Jumlah kolom tidak sesuai pada baris 2
+[2024-08-12 17:46:44] Membaca baris 2: , , , , 
+[2024-08-12 17:46:44] Error: Jumlah kolom tidak sesuai pada baris 2
+[2024-08-12 17:46:44] Membaca baris 2: Data Pengukuran, , , , 
+[2024-08-12 17:46:44] Error: Jumlah kolom tidak sesuai pada baris 2
+[2024-08-12 17:46:44] Membaca baris 2: Tanggal Pengukuran, Berat Badan, Tinggi Badan, Status Gizi, Bulan
+[2024-08-12 17:46:44] Error: Jumlah kolom tidak sesuai pada baris 2
+[2024-08-12 17:46:44] Membaca baris 2: 2023-02-05, 9.2, 72, Normal, februari
+[2024-08-12 17:46:44] Error: Jumlah kolom tidak sesuai pada baris 2
+[2024-08-12 17:46:44] Transaksi dibatalkan karena ada error.
+[2024-08-12 17:53:46] Mulai impor file: C:\xampp\tmp\phpE994.tmp
+[2024-08-12 17:53:46] File berhasil dibuka
+[2024-08-12 17:53:46] Transaksi database dimulai
+[2024-08-12 17:53:46] Membaca baris 2: 1, 2023-08-15, 10.5, 75.0, Normal, desember
+[2024-08-12 17:53:46] Baris 2 berhasil diimpor
+[2024-08-12 17:53:46] Transaksi berhasil. 1 data diimpor.
+[2024-08-12 18:10:41] Mulai impor file: C:\xampp\tmp\php66BB.tmp
+[2024-08-12 18:10:41] File berhasil dibuka
+[2024-08-12 18:10:41] Transaksi database dimulai
+[2024-08-12 18:10:41] Membaca baris 2: 1, 2023-08-15, 10.5, 75.0, Normal, desember
+[2024-08-12 18:10:41] Baris 2 berhasil diimpor
+[2024-08-12 18:10:41] Transaksi berhasil. 1 data diimpor.
+[2024-08-12 18:19:40] Mulai impor file balita: C:\xampp\tmp\php9F98.tmp
+[2024-08-12 18:19:40] File balita berhasil dibuka
+[2024-08-12 18:19:40] Transaksi database dimulai
+[2024-08-12 18:19:40] Membaca baris 2: 9, Andi Saputra, Laki-laki, 3501234567890009, 2020-05-15, 3000, Budi santoso, Ansila, Jl. Mawar No. 10 RT 02/RW 03, Aktif
+[2024-08-12 18:19:40] Baris 2 berhasil diimpor
+[2024-08-12 18:19:40] Transaksi berhasil. 1 data balita diimpor.
+[2024-08-12 18:44:35] Mulai impor file: C:\xampp\tmp\php70E8.tmp
+[2024-08-12 18:44:35] File berhasil dibuka
+[2024-08-12 18:44:35] Transaksi database dimulai
+[2024-08-12 18:44:35] Membaca baris 2: 1, 2023-08-15, 10.5, 75.0, Normal, desember
+[2024-08-12 18:44:35] Baris 2 berhasil diimpor
+[2024-08-12 18:44:35] Transaksi berhasil. 1 data diimpor.
+[2024-08-12 19:06:26] Mulai impor file: C:\xampp\tmp\php7000.tmp
+[2024-08-12 19:06:26] File berhasil dibuka
+[2024-08-12 19:06:26] Transaksi database dimulai
+[2024-08-12 19:06:26] Membaca baris 2: 1, 2023-08-15, 10.5, 75.0, Normal, desember
+[2024-08-12 19:06:26] Baris 2 berhasil diimpor
+[2024-08-12 19:06:26] Transaksi berhasil. 1 data diimpor.
+[2024-08-12 19:06:34] Mulai impor file balita: C:\xampp\tmp\php9210.tmp
+[2024-08-12 19:06:34] File balita berhasil dibuka
+[2024-08-12 19:06:34] Transaksi database dimulai
+[2024-08-12 19:06:34] Membaca baris 2: 9, Andi Saputra, Laki-laki, 3501234567890009, 2020-05-15, 3000, Budi santoso, Ansila, Jl. Mawar No. 10 RT 02/RW 03, Aktif
+[2024-08-12 19:06:34] Baris 2 berhasil diimpor
+[2024-08-12 19:06:34] Transaksi berhasil. 1 data balita diimpor.
