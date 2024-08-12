@@ -2,7 +2,7 @@
 ob_start();
 session_start();
 require_once __DIR__ . '/../config/config.php';
-require_once __DIR__ . '/../pos_2/header_ih_p2.php';
+require_once __DIR__ . '/../pos_1/header_ih_p1.php';
 require_once __DIR__ . '/../vendor/autoload.php';
 
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
@@ -68,11 +68,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $id_ibu = isset($_POST['id_ibu']) ? (int)$_POST['id_ibu'] : 1;
             $bulan = isset($_POST['bulan']) ? $_POST['bulan'] : 'all';
 
-            $ibuHamilData = getIbuHamil2AndCatatanKehamilan($db, $id_ibu);
+            $ibuHamilData = getIbuHamilAndCatatanKehamilan($db, $id_ibu);
             if ($bulan === 'all') {
-                $catatanKehamilanData = getAllCatatan2($db, $id_ibu);
+                $catatanKehamilanData = getAllCatatan($db, $id_ibu);
             } else {
-                $catatanKehamilanData = getCatatanKehamilanByBulan2($db, $id_ibu, $bulan);
+                $catatanKehamilanData = getCatatanKehamilanByBulan($db, $id_ibu, $bulan);
             }
 
             $namaIbu = !empty($ibuHamilData) ? $ibuHamilData[0]['nama_ibu_hamil'] : 'Unknown';
@@ -135,15 +135,15 @@ $id_ibu = isset($_POST['id_ibu']) ? (int)$_POST['id_ibu'] : 1;
 $bulan = isset($_POST['bulan']) ? $_POST['bulan'] : 'all';
 
 // Fetch data for the selected id_ibu and bulan
-$ibuHamilData = getIbuHamil2AndCatatanKehamilan($db, $id_ibu);
+$ibuHamilData = getIbuHamilAndCatatanKehamilan($db, $id_ibu);
 if ($bulan === 'all') {
-    $catatanKehamilanData = getAllCatatan2($db, $id_ibu);
+    $catatanKehamilanData = getAllCatatan($db, $id_ibu);
 } else {
-    $catatanKehamilanData = getCatatanKehamilanByBulan2($db, $id_ibu, $bulan);
+    $catatanKehamilanData = getCatatanKehamilanByBulan($db, $id_ibu, $bulan);
 }
 
 // Fetch list of ibu hamil for dropdown
-$ibuHamils = $db->query("SELECT id_ibu, nama_ibu_hamil FROM ibu_hamil_2")->fetchAll(PDO::FETCH_ASSOC);
+$ibuHamils = $db->query("SELECT id_ibu, nama_ibu_hamil FROM ibu_hamil")->fetchAll(PDO::FETCH_ASSOC);
 
 // List of months for dropdown
 $months = ['januari', 'februari', 'maret', 'april', 'mei', 'juni', 'juli', 'agustus', 'september', 'oktober', 'november', 'desember'];
@@ -377,7 +377,7 @@ function importFromCSV($filename, $db) {
             $db->beginTransaction();
             logImport("Transaksi database dimulai");
 
-            $stmt = $db->prepare("INSERT INTO catatan_kehamilan_2 (id_ibu, hamil_keberapa, hpht, hpl, usia_kehamilan, status_kehamilan, tinggi_badan, berat_badan, lila, laboratorium, imunisasi, mendapatkan_bantuan, mempunyai_bpjs, bulan) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+            $stmt = $db->prepare("INSERT INTO catatan_kehamilan (id_ibu, hamil_keberapa, hpht, hpl, usia_kehamilan, status_kehamilan, tinggi_badan, berat_badan, lila, laboratorium, imunisasi, mendapatkan_bantuan, mempunyai_bpjs, bulan) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
             
             $lineNumber = 2;
             while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
@@ -463,7 +463,7 @@ function importIbuHamilFromCSV($filename, $db) {
             $db->beginTransaction();
             logImport("Transaksi database dimulai");
 
-            $stmt = $db->prepare("INSERT INTO ibu_hamil_2 (id_ibu, nama_ibu_hamil, nik, tempat_tanggal_lahir_ibu, nama_suami, nik_suami, tempat_tanggal_lahir_suami, alamat) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+            $stmt = $db->prepare("INSERT INTO ibu_hamil (id_ibu, nama_ibu_hamil, nik, tempat_tanggal_lahir_ibu, nama_suami, nik_suami, tempat_tanggal_lahir_suami, alamat) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
             
             $lineNumber = 2;
             while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
@@ -588,11 +588,11 @@ if (isset($_POST['action'])) {
     $id_ibu = isset($_POST['id_ibu']) ? (int)$_POST['id_ibu'] : 1;
     $bulan = isset($_POST['bulan']) ? $_POST['bulan'] : 'all';
     
-    $ibuHamilData = getIbuHamil2AndCatatanKehamilan($db, $id_ibu);
+    $ibuHamilData = getIbuHamilAndCatatanKehamilan($db, $id_ibu);
     if ($bulan === 'all') {
-        $catatanKehamilanData = getAllCatatan2($db, $id_ibu);
+        $catatanKehamilanData = getAllCatatan($db, $id_ibu);
     } else {
-        $catatanKehamilanData = getCatatanKehamilanByBulan2($db, $id_ibu, $bulan);
+        $catatanKehamilanData = getCatatanKehamilanByBulan($db, $id_ibu, $bulan);
     }
     
     // Ambil nama ibu dari data ibu hamil
@@ -971,6 +971,6 @@ document.addEventListener('DOMContentLoaded', function() {
 </html>
 
 <?php 
-require_once __DIR__ . '/../pos_2/footer_ih_p2.php';
+require_once __DIR__ . '/../pos_1/footer_ih_p1.php';
 ob_end_flush();
 ?>
