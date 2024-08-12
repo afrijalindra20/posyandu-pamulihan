@@ -67,6 +67,9 @@ function isActive($page) {
                     <li class="nav-item">
                         <a class="nav-link <?php echo isActive('balita_crud_p4.php'); ?>" href="../posyandu4/balita_crud_p4.php"><i class="fas fa-ruler"></i> pengukuran Balita</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link <?php echo isActive('balita_p4_file.php'); ?>" href="../posyandu4/balita_p4_file.php"><i class="fas fa-user"></i> Transfer Data Balita</a>
+                    </li>
             
                 </ul>
             </div>

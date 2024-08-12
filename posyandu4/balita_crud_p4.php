@@ -25,18 +25,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             'bulan' => $_POST['bulan']
         ];
 
-        if ($action === 'add') {
-            $stmt = $db->prepare("INSERT INTO pengukuran_balita_4 (no, id_balita, tanggal_pengukuran, berat_badan, tinggi_badan, status_gizi, bulan) VALUES (?, ?, ?, ?, ?, ?, ?)");
-            $stmt->execute(array_values($data));
-        } elseif ($action === 'edit') {
-            $data['id_pengukuran'] = $_POST['id_pengukuran'];
-            $stmt = $db->prepare("UPDATE pengukuran_balita_4 SET no = ?, id_balita = ?, tanggal_pengukuran = ?, berat_badan = ?, tinggi_badan = ?, status_gizi = ?, bulan = ? WHERE id_pengukuran = ?");
-            $stmt->execute(array_values($data));
+     // Modify the 'add' action in the form submission handling section
+     if ($action === 'add') {
+        if (empty($_POST['no'])) {
+            $stmt = $db->query("SELECT MAX(no) as max_no FROM pengukuran_balita_4");
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+            $data['no'] = ($result['max_no'] ?? 0) + 1;
         }
-    } elseif ($action === 'delete') {
-        $stmt = $db->prepare("DELETE FROM pengukuran_balita_4 WHERE id_pengukuran = ?");
-        $stmt->execute([$_POST['id_pengukuran']]);
-    }
+        $stmt = $db->prepare("INSERT INTO pengukuran_balita_4 (no, id_balita, tanggal_pengukuran, berat_badan, tinggi_badan, status_gizi, bulan) VALUES (?, ?, ?, ?, ?, ?, ?)");
+        $stmt->execute(array_values($data));
+    
+            } elseif ($action === 'edit') {
+                $data['id_pengukuran'] = $_POST['id_pengukuran'];
+                $stmt = $db->prepare("UPDATE pengukuran_balita_4 SET no = ?, id_balita = ?, tanggal_pengukuran = ?, berat_badan = ?, tinggi_badan = ?, status_gizi = ?, bulan = ? WHERE id_pengukuran = ?");
+                $stmt->execute(array_values($data));
+            }
+        } elseif ($action === 'delete') {
+            $stmt = $db->prepare("DELETE FROM pengukuran_balita_4 WHERE id_pengukuran = ?");
+            $stmt->execute([$_POST['id_pengukuran']]);
+        }
+
 
     // Redirect untuk menghindari pengiriman ulang form
     header("Location: " . $_SERVER['PHP_SELF']);
@@ -289,7 +297,7 @@ $bulan_list = ['januari', 'februari', 'maret', 'april', 'mei', 'juni', 'juli', '
                             <tbody>
                                 <?php foreach ($pengukuran_balitas as $pengukuran): ?>
                                     <tr>
-                                        <td><?php echo htmlspecialchars($pengukuran['no']); ?></td>
+                                    <td><?php echo htmlspecialchars($pengukuran['no'] ?? ''); ?></td>
                                         <td><?php echo htmlspecialchars($pengukuran['nama_balita']); ?></td>
                                         <td><?php echo htmlspecialchars($pengukuran['tanggal_pengukuran']); ?></td>
                                         <td><?php echo htmlspecialchars($pengukuran['berat_badan']); ?></td>

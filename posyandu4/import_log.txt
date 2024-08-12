@@ -1,0 +1,18 @@
+[2024-08-12 19:54:16] Mulai impor file: C:\xampp\tmp\php3A5B.tmp
+[2024-08-12 19:54:16] File berhasil dibuka
+[2024-08-12 19:54:16] Transaksi database dimulai
+[2024-08-12 19:54:16] Membaca baris 2: 1, 2023-08-15, 10.5, 75.0, Normal, desember
+[2024-08-12 19:54:16] Baris 2 berhasil diimpor
+[2024-08-12 19:54:16] Transaksi berhasil. 1 data diimpor.
+[2024-08-12 19:54:28] Mulai impor file balita: C:\xampp\tmp\php6AC2.tmp
+[2024-08-12 19:54:28] File balita berhasil dibuka
+[2024-08-12 19:54:28] Transaksi database dimulai
+[2024-08-12 19:54:28] Membaca baris 2: 1, 2023-08-15, 10.5, 75.0, Normal, desember
+[2024-08-12 19:54:28] Error: Jumlah kolom tidak sesuai pada baris 2
+[2024-08-12 19:54:28] Transaksi dibatalkan karena ada error.
+[2024-08-12 19:54:53] Mulai impor file balita: C:\xampp\tmp\phpCCE8.tmp
+[2024-08-12 19:54:53] File balita berhasil dibuka
+[2024-08-12 19:54:53] Transaksi database dimulai
+[2024-08-12 19:54:53] Membaca baris 2: 9, Andi Saputra, Laki-laki, 3501234567890009, 2020-05-15, 3000, Budi santoso, Ansila, Jl. Mawar No. 10 RT 02/RW 03, Aktif
+[2024-08-12 19:54:53] Baris 2 berhasil diimpor
+[2024-08-12 19:54:53] Transaksi berhasil. 1 data balita diimpor.
