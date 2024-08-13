@@ -145,6 +145,22 @@ if ($bulan === 'all') {
 // Fetch list of ibu hamil for dropdown
 $ibuHamils = $db->query("SELECT id_ibu, nama_ibu_hamil FROM ibu_hamil_3")->fetchAll(PDO::FETCH_ASSOC);
 
+// Ambil daftar ibu hamil untuk dropdown
+$ibuHamilList = $db->query("SELECT id_ibu, nama_ibu_hamil FROM ibu_hamil_3")->fetchAll(PDO::FETCH_ASSOC);
+
+// Tetapkan nilai default
+$default_id_ibu = $ibuHamilList[0]['id_ibu'] ?? null;
+$default_bulan = 'januari';
+
+// Tangani pengiriman form atau gunakan nilai default
+$id_ibu = isset($_POST['id_ibu']) ? (int)$_POST['id_ibu'] : $default_id_ibu;
+$bulan = isset($_POST['bulan']) ? $_POST['bulan'] : $default_bulan;
+
+// Ambil data untuk id_ibu dan bulan yang dipilih atau default
+$ibuHamilData = getIbuHamil3AndCatatanKehamilan($db, $id_ibu);
+$catatanKehamilanData = getCatatanKehamilanByBulan3($db, $id_ibu, $bulan);
+
+
 // List of months for dropdown
 $months = ['januari', 'februari', 'maret', 'april', 'mei', 'juni', 'juli', 'agustus', 'september', 'oktober', 'november', 'desember'];
 

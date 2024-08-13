@@ -1,7 +1,7 @@
 <?php
 session_start();
 require_once __DIR__ . '/../config/config.php';
-require_once __DIR__ . '/../pos_1/header_ih_p1.php';
+require_once __DIR__ . '/../pos_1/header_balita_p1.php';
 
 // Periksa apakah pengguna sudah login
 if (!isset($_SESSION['user'])) {
@@ -20,15 +20,13 @@ $default_bulan = 'januari';
 $id_ibu = isset($_POST['id_ibu']) ? (int)$_POST['id_ibu'] : $default_id_ibu;
 $bulan = isset($_POST['bulan']) ? $_POST['bulan'] : $default_bulan;
 
-// Fetch data for the selected id_ibu and bulan
+// Ambil data untuk id_ibu dan bulan yang dipilih atau default
 $ibuHamilData = getIbuHamilAndCatatanKehamilan($db, $id_ibu);
 $catatanKehamilanData = getCatatanKehamilanByBulan($db, $id_ibu, $bulan);
 
-// Fetch list of ibu hamil for dropdown
-$ibuHamilList = $db->query("SELECT id_ibu, nama_ibu_hamil FROM ibu_hamil")->fetchAll(PDO::FETCH_ASSOC);
-
-// List of months for dropdown
+// Daftar bulan untuk dropdown
 $months = ['januari', 'februari', 'maret', 'april', 'mei', 'juni', 'juli', 'agustus', 'september', 'oktober', 'november', 'desember'];
+
 ?>
 
 <!DOCTYPE html>
@@ -36,173 +34,13 @@ $months = ['januari', 'februari', 'maret', 'april', 'mei', 'juni', 'juli', 'agus
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Data Ibu Hamil</title>
+    <title>Data Ibu Hamil dan Catatan Kehamilan</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-    <style>
-    body {
-        background-color: #f8f9fa;
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
-    .container {
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 0 15px;
-    }
-    .jumbotron {
-        background: linear-gradient(135deg, #007bff, #6610f2);
-        color: white;
-        padding: 4rem 2rem;
-        margin-bottom: 2rem;
-        border-radius: 0.5rem;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-    }
-    .jumbotron .row {
-        margin: 0;
-    }
-    .jumbotron h1 {
-        font-weight: 700;
-        text-shadow: 2px 2px 4px rgba(255,255,255,0.5);
-        animation: fadeInDown 1s ease-out;
-        margin-bottom: 0.5rem;
-    }
-    .jumbotron p {
-        animation: fadeInUp 1s ease-out 0.5s;
-        animation-fill-mode: both;
-        margin-bottom: 0;
-    }
-    .title-icon {
-        font-size: 4rem;
-        color: #ffffff;
-        animation: bounceIn 1s ease-out;
-        margin-right: 1rem;
-    }
-    @keyframes fadeInDown {
-        from { opacity: 0; transform: translateY(-20px); }
-        to { opacity: 1; transform: translateY(0); }
-    }
-    @keyframes fadeInUp {
-        from { opacity: 0; transform: translateY(20px); }
-        to { opacity: 1; transform: translateY(0); }
-    }
-    @keyframes bounceIn {
-        0% { opacity: 0; transform: scale(0.3); }
-        50% { opacity: 1; transform: scale(1.05); }
-        70% { transform: scale(0.9); }
-        100% { transform: scale(1); }
-    }
-    .card {
-        border: none;
-        border-radius: 15px;
-        box-shadow: 0 5px 15px rgba(0,0,0,0.08);
-        transition: all 0.3s ease;
-        margin-bottom: 2rem;
-    }
-    .card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 8px 20px rgba(0,0,0,0.12);
-    }
-    .card-header {
-        border-radius: 15px 15px 0 0 !important;
-        font-weight: 600;
-        padding: 1rem 1.5rem;
-    }
-    .card-body {
-        padding: 1.5rem;
-    }
-    .form-control, .btn {
-        border-radius: 10px;
-    }
-    .btn-primary {
-        background-color: #007bff;
-        border: none;
-        transition: all 0.3s ease;
-        padding: 0.5rem 1rem;
-    }
-    .btn-primary:hover {
-        background-color: #0056b3;
-        transform: translateY(-2px);
-        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    }
-    .table {
-        border-radius: 15px;
-        overflow: hidden;
-    }
-    .table th {
-        background-color: #007bff;
-        color: white;
-        border: none;
-    }
-    .table td {
-        vertical-align: middle;
-    }
-    @media (max-width: 768px) {
-        .jumbotron {
-            padding: 3rem 1rem;
-        }
-        .title-icon {
-            font-size: 3rem;
-            margin-right: 0.5rem;
-        }
-        .jumbotron h1 {
-            font-size: 2rem;
-        }
-        .jumbotron p {
-            font-size: 1rem;
-        }
-    }
-    </style>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
 </head>
 <body>
-    <div class="container">
-        <div class="jumbotron text-center">
-            <div class="row align-items-center justify-content-center">
-                <div class="col-auto">
-                    <i class="fas fa-female title-icon"></i>
-                </div>
-                <div class="col-auto">
-                    <h1 class="display-4">Data Ibu Hamil</h1>
-                    <p class="lead">Sistem Informasi Pengelolaan Data Ibu Hamil</p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="container mb-5">
+<div class="container mt-4">
     <div class="row">
-        <div class="col-lg-4 mb-4">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title mb-4">Pilih Ibu Hamil dan Bulan</h5>
-                    <form method="POST">
-                        <div class="mb-3">
-                            <label for="id_ibu" class="form-label">Pilih Ibu Hamil:</label>
-                            <select name="id_ibu" id="id_ibu" class="form-select">
-                                <?php foreach ($ibuHamilList as $ibu): ?>
-                                    <option value="<?= $ibu['id_ibu'] ?>" <?= $ibu['id_ibu'] == $id_ibu ? 'selected' : '' ?>>
-                                        <?= htmlspecialchars($ibu['nama_ibu_hamil']) ?>
-                                    </option>
-                                <?php endforeach; ?>
-                            </select>
-                        </div>
-                        <div class="mb-3">
-                            <label for="bulan" class="form-label">Pilih Bulan:</label>
-                            <select name="bulan" id="bulan" class="form-select">
-                                <?php foreach ($months as $month): ?>
-                                    <option value="<?= $month ?>" <?= $month === $bulan ? 'selected' : '' ?>>
-                                        <?= ucfirst($month) ?>
-                                    </option>
-                                <?php endforeach; ?>
-                            </select>
-                        </div>
-                        <button type="submit" class="btn btn-primary w-100">
-                            <i class="fas fa-search"></i> Tampilkan Data
-                        </button>
-                    </form>
-                </div>
-            </div>
-        </div>
-
         <div class="col-lg-8">
             <?php if (!empty($ibuHamilData)): ?>
                 <div class="card mb-4">
@@ -278,18 +116,14 @@ $months = ['januari', 'februari', 'maret', 'april', 'mei', 'juni', 'juli', 'agus
                     </div>
                 <?php endif; ?>
             <?php else: ?>
-                <div class="alert alert-info mt-4" role="alert">
-                    <i class="fas fa-info-circle"></i> Tidak ada data untuk ibu hamil yang dipilih.
+                <div class="alert alert-warning mt-4" role="alert">
+                    <i class="fas fa-exclamation-triangle"></i> Tidak ada data ibu hamil yang tersedia.
                 </div>
             <?php endif; ?>
         </div>
     </div>
 </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
-
-<?php 
-require_once __DIR__ . '/../pos_1/footer_ih_p1.php';
-?>
